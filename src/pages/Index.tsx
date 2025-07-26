@@ -9,63 +9,101 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
+  const [selectedMilitaryBranch, setSelectedMilitaryBranch] = useState<string | null>(null);
 
-  // Данные о бюджетных расходах
+  // Данные о бюджетных расходах (обновлено согласно документу)
   const budgetData = [
-    { name: 'Здравоохранение', amount: 72, percentage: 20.0, color: '#2563EB' },
-    { name: 'Образование', amount: 65, percentage: 18.0, color: '#1E40AF' },
-    { name: 'Оборона', amount: 55, percentage: 15.3, color: '#DC2626' },
+    { name: 'Здравоохранение', amount: 72, percentage: 20.0, color: '#DC2626' },
+    { name: 'Образование', amount: 65, percentage: 18.0, color: '#2563EB' },
     { name: 'Наука и технологии', amount: 54, percentage: 15.0, color: '#7C3AED' },
+    { name: 'Оборона', amount: 55, percentage: 15.3, color: '#991B1B' },
     { name: 'Инфраструктура', amount: 40, percentage: 11.1, color: '#059669' },
     { name: 'Соц. обеспечение', amount: 29, percentage: 8.1, color: '#EA580C' },
     { name: 'Экология', amount: 18, percentage: 5.1, color: '#16A34A' },
     { name: 'Культура', amount: 11, percentage: 3.1, color: '#9333EA' },
-    { name: 'Международные связи', amount: 7, percentage: 1.9, color: '#0891B2' },
-    { name: 'Резервный фонд', amount: 9, percentage: 2.5, color: '#64748B' }
+    { name: 'Резервный фонд', amount: 9, percentage: 2.5, color: '#64748B' },
+    { name: 'Международные связи', amount: 7, percentage: 1.9, color: '#0891B2' }
   ];
 
-  // Данные об административном делении
+  // Данные об административном делении (обновлено)
   const provinces = [
-    { id: 1, name: 'Столичный округ Асхиния', center: 'Асхиния', population: 5.6, features: 'Столица, IT, финансы, СМИ, промышленность', position: 'Запад' },
-    { id: 2, name: 'Столичный округ Хвиней', center: 'Хвиней', population: 4.9, features: 'Главный порт, судостроение, рыболовство, ВПК, логистика', position: 'Север (побережье)' },
-    { id: 3, name: 'Центральная провинция', center: 'Сармонт', population: 3.9, features: 'Тяжёлая промышленность, транспортный хаб (ж/д, шоссе)', position: 'Центр' },
-    { id: 4, name: 'Восточная провинция', center: 'Савея', population: 3.5, features: 'Технопарки, ВПК, НИОКР, IT-кластеры', position: 'Восток' },
-    { id: 5, name: 'Западная провинция', center: 'Катрианпи', population: 2.6, features: 'Промышленность (авто, робототехника), порты-спутники Хвинея', position: 'Запад' },
-    { id: 6, name: 'Южная провинция', center: 'Вега', population: 1.9, features: 'Сельское хозяйство (зерно, виноград, фрукты)', position: 'Юг' },
-    { id: 7, name: 'Северная провинция', center: 'Касалья', population: 1.4, features: 'Курорты, виноделие, лёгкая промышленность', position: 'Север' }
+    { id: 1, name: 'Столичный округ Асхиния', center: 'Асхиния', population: 5.6, features: 'Столица, IT, финансы, СМИ, промышленность', position: 'Запад', type: 'Столичный округ' },
+    { id: 2, name: 'Столичный округ Хвиней', center: 'Хвиней', population: 4.9, features: 'Главный порт, судостроение, рыболовство, ВПК, логистика', position: 'Север (побережье)', type: 'Столичный округ' },
+    { id: 3, name: 'Центральная провинция', center: 'Сармонт', population: 3.9, features: 'Тяжёлая промышленность, транспортный хаб (ж/д, шоссе)', position: 'Центр', type: 'Провинция' },
+    { id: 4, name: 'Восточная провинция', center: 'Савея', population: 3.5, features: 'Технопарки, ВПК, НИОКР, IT-кластеры', position: 'Восток', type: 'Провинция' },
+    { id: 5, name: 'Западная провинция', center: 'Катрианпи', population: 2.6, features: 'Промышленность (авто, робототехника), порты-спутники Хвинея', position: 'Запад', type: 'Провинция' },
+    { id: 6, name: 'Южная провинция', center: 'Вега', population: 1.9, features: 'Сельское хозяйство (зерно, виноград, фрукты)', position: 'Юг', type: 'Провинция' },
+    { id: 7, name: 'Северная провинция', center: 'Касалья', population: 1.4, features: 'Курорты, виноделие, лёгкая промышленность', position: 'Север', type: 'Провинция' }
   ];
 
-  // Экономические показатели
+  // Экономические показатели (обновлено)
   const economicData = [
     { metric: 'ВВП', value: '1,2 трлн сашинов', icon: 'TrendingUp' },
+    { metric: 'ВВП на душу', value: '50,400 сашинов', icon: 'User' },
     { metric: 'Рост ВВП', value: '4,8%', icon: 'ArrowUp' },
     { metric: 'Безработица', value: '3,1%', icon: 'Users' },
     { metric: 'Инфляция', value: '2,8%', icon: 'Percent' },
     { metric: 'Экспорт', value: '300 млрд сашинов', icon: 'Send' },
-    { metric: 'Импорт', value: '280 млрд сашинов', icon: 'Download' }
+    { metric: 'Импорт', value: '280 млрд сашинов', icon: 'Download' },
+    { metric: 'Доля экспорта в ВВП', value: '~25%', icon: 'Globe' }
   ];
 
-  // Военные силы
-  const militaryData = [
-    { branch: 'Сухопутные войска', personnel: '70 тыс.', equipment: '~300 танков, 800 БТР, 400 орудий' },
-    { branch: 'ВВС', personnel: '30 тыс.', equipment: '60 истребителей, 300 БПЛА, 18 бомбардировщиков' },
-    { branch: 'ВМФ', personnel: '20 тыс.', equipment: '10 фрегатов, 7 противолодочных кораблей, 3 подлодки' }
+  // Военные силы (детальная информация)
+  const militaryBranches = [
+    { 
+      id: 'army',
+      name: 'Сухопутные войска', 
+      personnel: '70 тыс.', 
+      equipment: [
+        'Бронетехника: ~300 танков, 800 БТР',
+        'Артиллерия: 400 орудий, 150 РСЗО'
+      ]
+    },
+    { 
+      id: 'airforce',
+      name: 'Военно-воздушные силы', 
+      personnel: '30 тыс.', 
+      equipment: [
+        'Истребители: 60 современных истребителей',
+        'БПЛА: 300 единиц (разведка и ударные комплексы)',
+        'Бомбардировщики: 18 единиц',
+        'Транспортные самолёты: 12 единиц (десантирование, эвакуация, доставка грузов)'
+      ]
+    },
+    { 
+      id: 'navy',
+      name: 'Военно-морской флот', 
+      personnel: '20 тыс.', 
+      equipment: [
+        'Фрегаты: 10 единиц',
+        'Противолодочные корабли: 7 единиц',
+        'Подводные лодки: 3 единицы',
+        'Ракетные катера: 16 единиц'
+      ]
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100">
-      {/* Шапка с флагом */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-red-50">
+      {/* Шапка с флагом и гербом */}
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <img 
               src="https://cdn.poehali.dev/files/6bcc8670-6b40-4dab-b3e9-11135c31bf20.png" 
               alt="Флаг Сашианийской Республики" 
-              className="w-16 h-12 object-cover rounded shadow-sm"
+              className="w-20 h-14 object-cover rounded shadow-md border"
             />
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Сашианийская Республика</h1>
-              <p className="text-slate-600 font-medium">Официальный информационный портал</p>
+            <div className="flex-1">
+              <h1 className="text-4xl font-bold text-slate-900">Сашианийская Республика</h1>
+              <p className="text-slate-600 font-medium text-lg">Официальный информационный портал</p>
+              <p className="text-sm text-slate-500 italic mt-1">"Слава Республике, Слава Сашиании!"</p>
+            </div>
+            <div className="text-right text-sm text-slate-600">
+              <div><strong>Домен:</strong> .sh</div>
+              <div><strong>Код ISO:</strong> SH / SAH</div>
+              <div><strong>Телефон:</strong> +47</div>
+              <div><strong>Время:</strong> UTC+3</div>
             </div>
           </div>
         </div>
@@ -73,17 +111,19 @@ const Index = () => {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid grid-cols-5 lg:grid-cols-10 gap-2 h-auto p-2 bg-white shadow-sm">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Обзор</TabsTrigger>
-            <TabsTrigger value="geography" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">География</TabsTrigger>
-            <TabsTrigger value="history" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">История</TabsTrigger>
-            <TabsTrigger value="government" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Власть</TabsTrigger>
-            <TabsTrigger value="economy" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Экономика</TabsTrigger>
-            <TabsTrigger value="military" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Армия</TabsTrigger>
-            <TabsTrigger value="regions" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Регионы</TabsTrigger>
-            <TabsTrigger value="social" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Социальная сфера</TabsTrigger>
-            <TabsTrigger value="culture" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Культура</TabsTrigger>
-            <TabsTrigger value="space" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Космос</TabsTrigger>
+          <TabsList className="grid grid-cols-5 lg:grid-cols-12 gap-1 h-auto p-2 bg-white shadow-sm">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Обзор</TabsTrigger>
+            <TabsTrigger value="geography" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">География</TabsTrigger>
+            <TabsTrigger value="history" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">История</TabsTrigger>
+            <TabsTrigger value="government" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Власть</TabsTrigger>
+            <TabsTrigger value="economy" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Экономика</TabsTrigger>
+            <TabsTrigger value="budget" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Бюджет</TabsTrigger>
+            <TabsTrigger value="military" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Армия</TabsTrigger>
+            <TabsTrigger value="regions" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Регионы</TabsTrigger>
+            <TabsTrigger value="social" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Социальная сфера</TabsTrigger>
+            <TabsTrigger value="culture" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Культура</TabsTrigger>
+            <TabsTrigger value="international" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Международные связи</TabsTrigger>
+            <TabsTrigger value="space" className="data-[state=active]:bg-red-700 data-[state=active]:text-white text-xs">Космос</TabsTrigger>
           </TabsList>
 
           {/* Обзор */}
@@ -92,7 +132,7 @@ const Index = () => {
               <Card className="lg:col-span-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Icon name="Flag" className="text-blue-600" />
+                    <Icon name="Flag" className="text-red-700" />
                     Общие сведения
                   </CardTitle>
                 </CardHeader>
@@ -100,20 +140,25 @@ const Index = () => {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div><strong>Полное название:</strong> Сашианийская Республика</div>
                     <div><strong>Форма правления:</strong> Президентская республика</div>
-                    <div><strong>Президент:</strong> Карл Маркес</div>
+                    <div><strong>Государственный строй:</strong> Федерация</div>
+                    <div><strong>Президент:</strong> Карл Маркес (с 2020)</div>
                     <div><strong>Премьер-министр:</strong> Лилия Вест</div>
                     <div><strong>Столица:</strong> Асхиния</div>
                     <div><strong>Язык:</strong> Сашианийский</div>
                     <div><strong>Валюта:</strong> Сашин (SHN)</div>
+                    <div><strong>Часовой пояс:</strong> AST (UTC+3)</div>
                     <div><strong>Площадь:</strong> ~92,400 км²</div>
-                    <div><strong>Население:</strong> 23,8 млн</div>
-                    <div><strong>ВВП на душу:</strong> 50,400 сашинов</div>
+                    <div><strong>Население:</strong> 23,8 млн (2025)</div>
+                    <div><strong>ВВП на душу:</strong> 50,400 сашинов (~44,800 USD)</div>
                     <div><strong>Независимость:</strong> 15 августа 1948 года</div>
+                    <div><strong>Жители:</strong> сашианиец, сашианийка, сашианийцы</div>
+                    <div><strong>Интернет-домен:</strong> .sh</div>
                     <div><strong>Код ISO:</strong> SH / SAH</div>
-                  </div>
-                  <Separator />
-                  <div>
-                    <strong>Девиз и гимн:</strong> "Слава Республике, Слава Сашиании!"
+                    <div><strong>Код МОК:</strong> SAH</div>
+                    <div><strong>Телефонный код:</strong> +47</div>
+                    <div><strong>Движение:</strong> правостороннее</div>
+                    <div><strong>Доля экспорта в ВВП:</strong> ~25%</div>
+                    <div><strong>Гимн:</strong> "Слава Республике, Слава Сашиании!"</div>
                   </div>
                 </CardContent>
               </Card>
@@ -125,54 +170,68 @@ const Index = () => {
                     Ключевые показатели
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-3">
                   {economicData.map((item, index) => (
                     <div key={index} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Icon name={item.icon as any} size={16} className="text-blue-600" />
-                        <span className="text-sm font-medium">{item.metric}</span>
+                        <span className="text-xs font-medium">{item.metric}</span>
                       </div>
-                      <Badge variant="secondary">{item.value}</Badge>
+                      <Badge variant="secondary" className="text-xs">{item.value}</Badge>
                     </div>
                   ))}
                 </CardContent>
               </Card>
             </div>
 
-            {/* Бюджет */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon name="PieChart" className="text-blue-600" />
-                  Государственный бюджет 2025 (360 млрд сашинов)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    {budgetData.map((item, index) => (
-                      <div key={index} className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium">{item.name}</span>
-                          <div className="text-right">
-                            <div className="text-sm font-bold">{item.amount} млрд</div>
-                            <div className="text-xs text-slate-500">{item.percentage}%</div>
-                          </div>
-                        </div>
-                        <Progress value={item.percentage} className="h-2" />
+            {/* Символы государства */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="Flag" className="text-red-700" />
+                    Флаг
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <img 
+                      src="https://cdn.poehali.dev/files/6bcc8670-6b40-4dab-b3e9-11135c31bf20.png" 
+                      alt="Флаг Сашианийской Республики" 
+                      className="w-full h-32 object-cover rounded border"
+                    />
+                    <p className="text-sm text-slate-600">
+                      Вертикальные полосы белого, бордового и синего цветов. По центру — золотой герб: 
+                      пшеничный колос с корнями, в нижней части колоса находится щит с изображением пучка трёх стрел.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="Shield" className="text-amber-600" />
+                    Герб
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="w-full h-32 bg-gradient-to-b from-amber-100 to-amber-200 rounded border flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-4xl">🌾</div>
+                        <div className="text-2xl">🛡️</div>
+                        <div className="text-xs">⚔️⚔️⚔️</div>
                       </div>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <div className="text-center space-y-2">
-                      <div className="text-4xl font-bold text-blue-600">360</div>
-                      <div className="text-sm text-slate-600">млрд сашинов</div>
-                      <div className="text-xs text-slate-500">Общий бюджет</div>
                     </div>
+                    <p className="text-sm text-slate-600">
+                      Щит с изображением пшеничного колоса, символизирующего плодородие, и щит с изображением 
+                      трёх стрел, означающий стойкость Сашиании, единство и прогресс.
+                    </p>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           {/* География и климат */}
@@ -184,13 +243,29 @@ const Index = () => {
                     <Icon name="MapPin" className="text-green-600" />
                     Расположение и границы
                   </CardTitle>
+                  <CardDescription>Северо-запад материка Альвания</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-                    <div><strong>Север:</strong> Сашианийский океан</div>
-                    <div><strong>Восток:</strong> Кусарийская Демократическая Республика</div>
-                    <div><strong>Юг:</strong> Государство Кальвария (союзник)</div>
-                    <div><strong>Запад:</strong> Королевство Вестмарк (торговый партнёр)</div>
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <strong className="text-blue-800">Север:</strong>
+                      <div className="text-sm text-blue-700">Сашианийский океан</div>
+                    </div>
+                    <div className="p-3 bg-red-50 rounded-lg">
+                      <strong className="text-red-800">Восток:</strong>
+                      <div className="text-sm text-red-700">Кусарийская Демократическая Республика</div>
+                      <div className="text-xs text-red-600">Исторические споры за приграничные территории</div>
+                    </div>
+                    <div className="p-3 bg-green-50 rounded-lg">
+                      <strong className="text-green-800">Юг:</strong>
+                      <div className="text-sm text-green-700">Государство Кальвария</div>
+                      <div className="text-xs text-green-600">Союзник в обороне и торговле</div>
+                    </div>
+                    <div className="p-3 bg-purple-50 rounded-lg">
+                      <strong className="text-purple-800">Запад:</strong>
+                      <div className="text-sm text-purple-700">Королевство Вестмарк</div>
+                      <div className="text-xs text-purple-600">Торговые связи, поддерживает политику Сашиании</div>
+                    </div>
                   </div>
                   <Separator />
                   <div className="space-y-2">
@@ -242,44 +317,42 @@ const Index = () => {
 
           {/* История */}
           <TabsContent value="history" className="space-y-6">
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="Clock" className="text-amber-600" />
-                    Исторические эпохи
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-4">
-                    <div className="border-l-4 border-amber-400 pl-4">
-                      <h3 className="font-semibold text-amber-800">Ранние эпохи</h3>
-                      <p className="text-sm text-slate-600">Первые поселения возникли в III тыс. до н.э. К VI веку до н.э. сложились торговые города.</p>
-                    </div>
-                    <div className="border-l-4 border-blue-400 pl-4">
-                      <h3 className="font-semibold text-blue-800">Средневековье</h3>
-                      <p className="text-sm text-slate-600">X–XIII века — период феодальных войн. В XIV веке образовалось два государства: Сашия и Ания.</p>
-                    </div>
-                    <div className="border-l-4 border-green-400 pl-4">
-                      <h3 className="font-semibold text-green-800">Колониальный период</h3>
-                      <p className="text-sm text-slate-600">XIX век — колонизация страной Ортании.</p>
-                    </div>
-                    <div className="border-l-4 border-red-400 pl-4">
-                      <h3 className="font-semibold text-red-800">Война за независимость (1947–1948)</h3>
-                      <p className="text-sm text-slate-600">Сашия и Ания выиграли у Ортании контроль над ключевыми территориями и по договору объединились в единую Республику.</p>
-                    </div>
-                    <div className="border-l-4 border-purple-400 pl-4">
-                      <h3 className="font-semibold text-purple-800">Независимость (1948)</h3>
-                      <p className="text-sm text-slate-600">15 августа 1948 года — провозглашение независимости и объединение Сашии и Ании в одно единое государство.</p>
-                    </div>
-                    <div className="border-l-4 border-cyan-400 pl-4">
-                      <h3 className="font-semibold text-cyan-800">Экономический бум (1960–1980)</h3>
-                      <p className="text-sm text-slate-600">Инвестиции в IT, энергетику и сельское хозяйство сделали страну региональным лидером.</p>
-                    </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="Clock" className="text-amber-600" />
+                  Исторические эпохи
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <div className="border-l-4 border-amber-400 pl-4">
+                    <h3 className="font-semibold text-amber-800">Ранние эпохи</h3>
+                    <p className="text-sm text-slate-600">Первые поселения возникли в III тыс. до н.э. К VI веку до н.э. сложились торговые города.</p>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                  <div className="border-l-4 border-blue-400 pl-4">
+                    <h3 className="font-semibold text-blue-800">Средневековье</h3>
+                    <p className="text-sm text-slate-600">X–XIII века — период феодальных войн. В XIV веке образовалось два государства: Сашия и Ания.</p>
+                  </div>
+                  <div className="border-l-4 border-gray-400 pl-4">
+                    <h3 className="font-semibold text-gray-800">Колониальный период</h3>
+                    <p className="text-sm text-slate-600">XIX век — колонизация страной Ортании.</p>
+                  </div>
+                  <div className="border-l-4 border-red-400 pl-4">
+                    <h3 className="font-semibold text-red-800">Война за независимость (1947–1948)</h3>
+                    <p className="text-sm text-slate-600">Сашия и Ания выиграли у Ортании контроль над ключевыми территориями и по договору объединились в единую Республику.</p>
+                  </div>
+                  <div className="border-l-4 border-purple-400 pl-4">
+                    <h3 className="font-semibold text-purple-800">Независимость (1948)</h3>
+                    <p className="text-sm text-slate-600">15 августа 1948 года — провозглашение независимости и объединение Сашии и Ании в одно единое государство.</p>
+                  </div>
+                  <div className="border-l-4 border-cyan-400 pl-4">
+                    <h3 className="font-semibold text-cyan-800">Экономический бум (1960–1980)</h3>
+                    <p className="text-sm text-slate-600">Инвестиции в IT, энергетику и сельское хозяйство сделали страну региональным лидером.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Государственное устройство */}
@@ -354,9 +427,11 @@ const Index = () => {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div><strong>ВВП:</strong> 1,2 трлн сашинов</div>
+                    <div><strong>ВВП на душу:</strong> 50,400 сашинов</div>
                     <div><strong>Рост ВВП:</strong> 4,8%</div>
                     <div><strong>Безработица:</strong> 3,1%</div>
                     <div><strong>Инфляция:</strong> 2,8%</div>
+                    <div><strong>Госбюджет:</strong> 360 млрд сашинов</div>
                     <div><strong>Экспорт:</strong> 300 млрд сашинов</div>
                     <div><strong>Импорт:</strong> 280 млрд сашинов</div>
                   </div>
@@ -433,6 +508,43 @@ const Index = () => {
             </Card>
           </TabsContent>
 
+          {/* Бюджет */}
+          <TabsContent value="budget" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Icon name="PieChart" className="text-blue-600" />
+                  Государственный бюджет 2025 (360 млрд сашинов)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    {budgetData.map((item, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-medium">{item.name}</span>
+                          <div className="text-right">
+                            <div className="text-sm font-bold">{item.amount} млрд</div>
+                            <div className="text-xs text-slate-500">{item.percentage}%</div>
+                          </div>
+                        </div>
+                        <Progress value={item.percentage} className="h-2" />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <div className="text-center space-y-2">
+                      <div className="text-4xl font-bold text-blue-600">360</div>
+                      <div className="text-sm text-slate-600">млрд сашинов</div>
+                      <div className="text-xs text-slate-500">Общий бюджет</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           {/* Вооружённые силы */}
           <TabsContent value="military" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -468,13 +580,25 @@ const Index = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {militaryData.map((branch, index) => (
-                      <div key={index} className="p-4 border rounded-lg">
+                    {militaryBranches.map((branch) => (
+                      <div 
+                        key={branch.id}
+                        className={`p-4 border rounded-lg cursor-pointer transition-all hover:shadow-md ${
+                          selectedMilitaryBranch === branch.id ? 'border-red-500 bg-red-50' : 'border-slate-200'
+                        }`}
+                        onClick={() => setSelectedMilitaryBranch(selectedMilitaryBranch === branch.id ? null : branch.id)}
+                      >
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-semibold">{branch.branch}</h4>
+                          <h4 className="font-semibold">{branch.name}</h4>
                           <Badge variant="secondary">{branch.personnel}</Badge>
                         </div>
-                        <div className="text-sm text-slate-600">{branch.equipment}</div>
+                        {selectedMilitaryBranch === branch.id && (
+                          <div className="mt-3 pt-3 border-t space-y-2">
+                            {branch.equipment.map((item, index) => (
+                              <div key={index} className="text-sm text-slate-600">• {item}</div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -504,7 +628,7 @@ const Index = () => {
                   Административное деление
                 </CardTitle>
                 <CardDescription>
-                  5 провинций и 2 столичных округа
+                  5 провинций и 2 столичных округа (общее население: 23,8 млн)
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -519,7 +643,12 @@ const Index = () => {
                     >
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-lg">{province.name}</h3>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-semibold text-lg">{province.name}</h3>
+                            <Badge variant={province.type === 'Столичный округ' ? 'default' : 'secondary'} className="text-xs">
+                              {province.type}
+                            </Badge>
+                          </div>
                           <div className="text-sm text-slate-600 mt-1">
                             <strong>Центр:</strong> {province.center} | <strong>Население:</strong> {province.population} млн
                           </div>
@@ -545,7 +674,7 @@ const Index = () => {
 
           {/* Социальная сфера */}
           <TabsContent value="social" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -591,30 +720,30 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
-            </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon name="Road" className="text-green-600" />
-                  Инфраструктура
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-green-600">40</div>
-                    <div className="text-sm text-slate-600">млрд сашинов</div>
-                    <div className="text-xs text-slate-500">11,1% от бюджета</div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="Road" className="text-green-600" />
+                    Инфраструктура
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-green-600">40</div>
+                      <div className="text-sm text-slate-600">млрд сашинов</div>
+                      <div className="text-xs text-slate-500">11,1% от бюджета</div>
+                    </div>
+                    <Separator />
+                    <div className="space-y-2 text-sm">
+                      <div>• Шоссе и скоростные железные дороги</div>
+                      <div>• Международный аэропорт «Асхиния»</div>
+                    </div>
                   </div>
-                  <Separator />
-                  <div className="space-y-2 text-sm">
-                    <div>• Шоссе и скоростные железные дороги</div>
-                    <div>• Международный аэропорт «Асхиния»</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
 
             <Card>
               <CardHeader>
@@ -679,7 +808,10 @@ const Index = () => {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
 
+          {/* Международные отношения */}
+          <TabsContent value="international" className="space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -688,29 +820,57 @@ const Index = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div>
-                    <h4 className="font-semibold text-green-600 mb-2">Союзники</h4>
-                    <div className="flex gap-2 flex-wrap">
-                      <Badge className="bg-green-100 text-green-800">Кальвария</Badge>
-                      <Badge className="bg-green-100 text-green-800">Вестмарк</Badge>
+                    <h4 className="font-semibold text-green-600 mb-3">Союзники</h4>
+                    <div className="space-y-3">
+                      <div className="p-3 bg-green-50 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Badge className="bg-green-100 text-green-800">Кальвария</Badge>
+                          <span className="text-sm">Государство-союзник</span>
+                        </div>
+                        <div className="text-xs text-green-700">Союзник в обороне и торговле</div>
+                      </div>
+                      <div className="p-3 bg-green-50 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Badge className="bg-green-100 text-green-800">Вестмарк</Badge>
+                          <span className="text-sm">Королевство-партнёр</span>
+                        </div>
+                        <div className="text-xs text-green-700">Торговые связи, активно поддерживает политику Сашиании</div>
+                      </div>
                     </div>
                   </div>
+                  
+                  <Separator />
+                  
                   <div>
-                    <h4 className="font-semibold text-red-600 mb-2">Противники</h4>
-                    <div className="space-y-2">
-                      <Badge className="bg-red-100 text-red-800">Кусария</Badge>
-                      <div className="text-sm text-slate-600">Споры за газовые месторождения</div>
-                      <Badge className="bg-red-100 text-red-800">Ортания</Badge>
-                      <div className="text-sm text-slate-600">Региональная сверхдержава, колониальные споры</div>
+                    <h4 className="font-semibold text-red-600 mb-3">Противники</h4>
+                    <div className="space-y-3">
+                      <div className="p-3 bg-red-50 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Badge className="bg-red-100 text-red-800">Кусария</Badge>
+                          <span className="text-sm">Демократическая Республика</span>
+                        </div>
+                        <div className="text-xs text-red-700">Споры за газовые месторождения и политико-исторические различия</div>
+                      </div>
+                      <div className="p-3 bg-red-50 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Badge className="bg-red-100 text-red-800">Ортания</Badge>
+                          <span className="text-sm">Региональная сверхдержава</span>
+                        </div>
+                        <div className="text-xs text-red-700">Спонсирует ВПК Кусарии, споры за бывшую колониальную историю</div>
+                      </div>
                     </div>
                   </div>
+                  
+                  <Separator />
+                  
                   <div>
-                    <h4 className="font-semibold text-blue-600 mb-2">Организации</h4>
+                    <h4 className="font-semibold text-blue-600 mb-3">Международные организации</h4>
                     <div className="flex gap-2 flex-wrap">
                       <Badge variant="outline">Совет наций</Badge>
-                      <Badge variant="outline">Экологическая Сеть</Badge>
-                      <Badge variant="outline">Торговый Союз</Badge>
+                      <Badge variant="outline">Организация Объединённой Экологической Сети</Badge>
+                      <Badge variant="outline">Всемирный Торговый Союз</Badge>
                     </div>
                   </div>
                 </div>
@@ -763,7 +923,7 @@ const Index = () => {
                     <div className="space-y-2 text-sm">
                       <div>• Исследования и разработки</div>
                       <div>• Технопарки и IT-кластеры</div>
-                      <div>• Космическая программа (40%)</div>
+                      <div>• Космическая программа (40% от науки)</div>
                     </div>
                   </div>
                 </CardContent>
